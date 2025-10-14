@@ -2,11 +2,8 @@
 # ============================================================
 # Debian 13 (Trixie) - KDE Plasma 6 Wayland Minimal Install
 # Matteo Edition 🇮🇹 - Completo con AMD + Realtek RTL8125
+# Include KTorrent e Master PDF Editor 5
 # ============================================================
-
-# chmod +x um760slim.sh
-# sudo ./um760slim.sh
-# sudo reboot
 
 echo ">>> Aggiornamento sistema..."
 apt update && apt full-upgrade -y
@@ -78,7 +75,19 @@ filezilla \
 putty \
 calibre \
 keepassxc \
-kiwix
+kiwix \
+ktorrent
+
+# ------------------------------------------------------------
+# Master PDF Editor 5 - repository ufficiale
+# ------------------------------------------------------------
+echo ">>> Aggiunta repository Master PDF Editor..."
+wget --quiet -O - http://repo.code-industry.net/deb/pubmpekey.asc | tee /etc/apt/keyrings/pubmpekey.asc
+echo "deb [signed-by=/etc/apt/keyrings/pubmpekey.asc arch=$(dpkg --print-architecture)] http://repo.code-industry.net/deb stable main" | tee /etc/apt/sources.list.d/master-pdf-editor.list
+echo ">>> Aggiornamento repository..."
+apt update
+echo ">>> Installazione Master PDF Editor 5..."
+apt install -y master-pdf-editor-5
 
 # ------------------------------------------------------------
 # Localizzazione Italiana
@@ -207,7 +216,7 @@ echo "============================================================"
 echo " Installazione completata con successo 🎉"
 echo " Debian 13 KDE Plasma Wayland - Matteo Edition 🇮🇹"
 echo " GPU AMD e Realtek RTL8125 già supportate"
-echo " Tutte le applicazioni extra sono già installate."
+echo " Tutte le applicazioni extra sono già installate (KTorrent e Master PDF Editor inclusi)."
 echo " Google Drive opzionale è commentato nello script."
 echo " Riavvia per entrare in Plasma (Wayland) di default."
 echo " Controlla sessione con:  echo \$XDG_SESSION_TYPE"
